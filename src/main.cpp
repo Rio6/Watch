@@ -43,27 +43,21 @@ void setup() {
     rtc.setDate(day, month + 1, year - 2000);
 }
 
-#define EMPTY(x) while(false)
-#define ATTACH(x, y) \
-    attachInterrupt(digitalPinToInterrupt(TSP_PIN_BT1), [](){x(1);}, y);\
-    attachInterrupt(digitalPinToInterrupt(TSP_PIN_BT2), [](){x(2);}, y);\
-    attachInterrupt(digitalPinToInterrupt(TSP_PIN_BT3), [](){x(3);}, y);\
-    attachInterrupt(digitalPinToInterrupt(TSP_PIN_BT4), [](){x(4);}, y)
-#define DETACH \
-    detachInterrupt(digitalPinToInterrupt(TSP_PIN_BT1));\
-    detachInterrupt(digitalPinToInterrupt(TSP_PIN_BT2));\
-    detachInterrupt(digitalPinToInterrupt(TSP_PIN_BT3));\
-    detachInterrupt(digitalPinToInterrupt(TSP_PIN_BT4))
-
 void standby() {
-    ATTACH(EMPTY, LOW);
+    attachInterrupt(digitalPinToInterrupt(TSP_PIN_BT1), [](){}, LOW);
+    attachInterrupt(digitalPinToInterrupt(TSP_PIN_BT2), [](){}, LOW);
+    attachInterrupt(digitalPinToInterrupt(TSP_PIN_BT3), [](){}, LOW);
+    attachInterrupt(digitalPinToInterrupt(TSP_PIN_BT4), [](){}, LOW);
+
     rtc.standbyMode();
-    DETACH;
+
+    detachInterrupt(digitalPinToInterrupt(TSP_PIN_BT1));
+    detachInterrupt(digitalPinToInterrupt(TSP_PIN_BT2));
+    detachInterrupt(digitalPinToInterrupt(TSP_PIN_BT3));
+    detachInterrupt(digitalPinToInterrupt(TSP_PIN_BT4));
 }
 
 void loop() {
-    ATTACH(modes[0].button, FALLING);
     modes[0].display();
-    DETACH;
     standby();
 }

@@ -5,38 +5,32 @@
 #include "main.h"
 
 const uint8_t TimeMode::BRIGHTNESS = 10;
-const int TimeMode::DURATION = 5;
+const long TimeMode::DURATION = 5000;
 
 void TimeMode::display() {
     screen.on();
     screen.setBrightness(BRIGHTNESS);
 
-    for(counter = 0; counter < DURATION; counter++) {
+    for(start = millis(); millis() - start < DURATION;) {
         setTime(rtc.getHours(), rtc.getMinutes(), rtc.getSeconds(),
                 rtc.getDay(), rtc.getMonth(), rtc.getYear() + 2000);
+
+        if(screen.getButtons(TSButtonUpperRight)) {
+            if(!debounce) {
+                showDate = !showDate;
+                screen.clearScreen();
+                start = millis();
+            }
+            debounce = true;
+        } else debounce = false;
 
         if(showDate) {
             printDate();
         }
         printTime();
-
-        delay(1000);
     }
 
     screen.off();
-}
-
-void TimeMode::button(int btn) {
-    if(btn == 1) {
-        showDate = !showDate;
-        if(showDate) {
-            printDate();
-        } else {
-            screen.clearScreen();
-            printTime();
-        }
-    }
-    counter = 0;
 }
 
 void TimeMode::printDate() {

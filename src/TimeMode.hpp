@@ -1,14 +1,14 @@
 class TimeMode {
     public:
         void display();
-        void button(int);
 
     private:
         static const uint8_t BRIGHTNESS;
-        static const int DURATION;
+        static const long DURATION;
 
-        volatile bool showDate;
-        int counter = 0;
+        bool showDate;
+        bool debounce = false;
+        int start = 0;
 
         void printDate();
         void printTime();
