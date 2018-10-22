@@ -1,11 +1,10 @@
-class TimeMode {
+#include "Mode.hpp"
+
+class TimeMode : public Mode {
     public:
-        void display();
+        bool display();
 
     private:
-        static const uint8_t BRIGHTNESS;
-        static const long DURATION;
-
         bool showDate;
         bool debounce = false;
         int start = 0;

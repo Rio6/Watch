@@ -1,70 +1,53 @@
 #include <Arduino.h>
 #include <TimeLib.h>
+#include <stdio.h>
 
 #include "TimeMode.hpp"
 #include "main.h"
 
-const uint8_t TimeMode::BRIGHTNESS = 10;
-const long TimeMode::DURATION = 5000;
+bool TimeMode::display() {
+    screen.fontColor(TS_8b_Green,TS_8b_Black);
 
-void TimeMode::display() {
-    screen.on();
-    screen.setBrightness(BRIGHTNESS);
-
-    for(start = millis(); millis() - start < DURATION;) {
-        setTime(rtc.getHours(), rtc.getMinutes(), rtc.getSeconds(),
-                rtc.getDay(), rtc.getMonth(), rtc.getYear() + 2000);
-
-        if(screen.getButtons(TSButtonUpperRight)) {
-            if(!debounce) {
-                showDate = !showDate;
-                screen.clearScreen();
-                start = millis();
-            }
-            debounce = true;
-        } else debounce = false;
-
-        if(showDate) {
-            printDate();
+    if(screen.getButtons(TSButtonUpperRight)) {
+        if(!debounce) {
+            showDate = !showDate;
+            screen.clearScreen();
         }
-        printTime();
+        debounce = true;
+    } else debounce = false;
+
+    if(showDate) {
+        printDate();
     }
 
-    screen.off();
+    printTime();
+
+    return debounce;
 }
 
 void TimeMode::printDate() {
-    screen.setFont(liberationSansNarrow_12ptFontInfo);   //Set the font type
+    char msg[13];
+    sprintf(msg, "%04d/%02d/%02d %s", year(), month(), day(), dayShortStr(weekday()));
 
-    int y = year(), m = month(), d = day();
-
-    screen.setCursor(15,8); //Set the cursor where you want to start printing the date
-    screen.print(y);
-    screen.print("/");
-    if(m < 10) screen.print(0); //print a leading 0 if hour value is less than 0
-    screen.print(m);
-    screen.print("/");
-    if(d < 10) screen.print(0);
-    screen.print(d);
-
-    screen.setCursor(30,25); //Set the cursor where you want to start printing the date
-    screen.print(dayStr(weekday()));
+    screen.setFont(liberationSansNarrow_8ptFontInfo);
+    screen.setCursor((screen.xMax - screen.getPrintWidth(msg)) / 2, 2);
+    screen.print(msg);
 }
 
 void TimeMode::printTime() {
-    screen.setFont(liberationSansNarrow_16ptFontInfo);   //Set the font type
-    screen.setCursor(20,45); //Set the cursor where you want to start printing the time
+    char hmMsg[6];
+    char secMsg[3];
 
-    int h = hour(), m = minute(), s = second();
+    sprintf(hmMsg, "%02d:%02d", hour(), minute());
+    sprintf(secMsg, "%02d", second());
 
-    if(h < 10) screen.print(0); //print a leading 0 if hour value is less than 0
-    screen.print(h);
-    screen.print(":");
-    if(m < 10) screen.print(0); //print a leading 0 if minute value is less than 0
-    screen.print(m);
-    screen.print(":");
-    if(s < 10) screen.print(0); //print a leading 0 if seconds value is less than 0
-    screen.print(s);
-    screen.print(" "); //just a empty space after the seconds
-    screen.setCursor(15,8); //Set the cursor where you want to start printing the date
+    screen.setFont(liberationSansNarrow_22ptFontInfo);
+    uint8_t hmH = screen.getFontHeight();
+
+    screen.setCursor((screen.xMax - screen.getPrintWidth(hmMsg)) / 2, (screen.yMax - hmH) / 2);
+    screen.print(hmMsg);
+
+    screen.setFont(liberationSansNarrow_16ptFontInfo);
+    screen.setCursor((screen.xMax - screen.getPrintWidth(secMsg)) / 2, (screen.yMax + hmH) / 2 + 2);
+    screen.print(secMsg);
 }
