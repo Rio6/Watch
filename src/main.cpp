@@ -14,9 +14,10 @@ const unsigned int DURATION = 5000;
 RTCZero rtc;
 TinyScreen screen = TinyScreen(TinyScreenPlus); //Create the TinyScreen object
 
-Mode *modes[] = {new TimeMode(), new SWMode()};
-int modeN = 2;
+const int modeC = 2;
 int modeI = 0;
+Mode *stdModes[modeC] = {new TimeMode(), new SWMode()};
+Mode *mode = stdModes[modeI];
 
 void setup() {
     rtc.begin();
@@ -56,6 +57,20 @@ void standby() {
     screen.on();
 }
 
+void nextMode() {
+    mode->stop();
+    modeI++;
+    modeI %= modeC;
+    mode = stdModes[modeI];
+    mode->start();
+}
+
+void setMode(Mode *newMode) {
+    mode->stop();
+    mode = newMode;
+    mode->start();
+}
+
 void loop() {
     setTime(rtc.getHours(), rtc.getMinutes(), rtc.getSeconds(),
             rtc.getDay(), rtc.getMonth(), rtc.getYear() + 2000);
@@ -64,18 +79,15 @@ void loop() {
     for(long start = millis(); millis() - start < DURATION;) {
         if(screen.getButtons(TSButtonLowerLeft)) {
             if(!debounce) {
-                modes[modeI]->stop();
-                modeI++;
-                modeI %= modeN;
-                modes[modeI]->start();
+                nextMode();
             }
             debounce = true;
         } else debounce = false;
 
-        bool active = modes[modeI]->display();
+        bool active = mode->display();
         if(active) start = millis();
 
-        if(getBattVoltage() < 3.0f)
+        if(getBattVoltage() < 3.5f)
             printBattery();
     }
     standby();

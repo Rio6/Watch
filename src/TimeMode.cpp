@@ -3,7 +3,9 @@
 #include <stdio.h>
 
 #include "TimeMode.hpp"
-#include "main.h"
+#include "SetTimeMode.hpp"
+#include "main.hpp"
+#include "myFont.h"
 
 bool TimeMode::display() {
     screen.fontColor(TS_8b_Green,TS_8b_Black);
@@ -16,13 +18,27 @@ bool TimeMode::display() {
         debounce = true;
     } else debounce = false;
 
+    if(screen.getButtons(TSButtonUpperLeft)) {
+        if(timeSetBtn < 0) {
+            timeSetBtn = millis();
+        } else if(millis() - timeSetBtn > SET_BTN_HOLD) {
+            setMode(new SetTimeMode());
+            timeSetBtn = -1;
+            return true;
+        }
+    } else timeSetBtn = -1;
+
     if(showDate) {
         printDate();
     }
 
     printTime();
 
-    return debounce;
+    return debounce || timeSetBtn > 0;
+}
+
+void TimeMode::stop() {
+    screen.clearScreen();
 }
 
 void TimeMode::printDate() {
@@ -41,7 +57,7 @@ void TimeMode::printTime() {
     sprintf(hmMsg, "%02d:%02d", hour(), minute());
     sprintf(secMsg, "%02d", second());
 
-    screen.setFont(liberationSansNarrow_22ptFontInfo);
+    screen.setFont(liberationSansNarrow_edited_22ptFontInfo);
     uint8_t hmH = screen.getFontHeight();
 
     screen.setCursor((screen.xMax - screen.getPrintWidth(hmMsg)) / 2, (screen.yMax - hmH) / 2);

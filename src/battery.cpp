@@ -1,7 +1,7 @@
 #include <Arduino.h>
 #include <avr/dtostrf.h>
 
-#include "main.h"
+#include "main.hpp"
 
 static float getVCC() {
     SYSCTRL->VREF.reg |= SYSCTRL_VREF_BGOUTEN;

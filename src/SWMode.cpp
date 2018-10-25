@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 #include "SWMode.hpp"
-#include "main.h"
+#include "main.hpp"
 
 bool SWMode::display() {
     screen.fontColor(TS_8b_Blue, TS_8b_Black);

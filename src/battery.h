@@ -1,5 +1,5 @@
-#ifndef _BATTERY_H_
-#define _BETTERY_H_
+#ifndef BATTERY_H
+#define BETTERY_H
 
 float getBattVoltage();
 void printBattery();

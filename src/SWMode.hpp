@@ -1,3 +1,6 @@
+#ifndef SWMODE_H
+#define SWMODE_H
+
 #include "Mode.hpp"
 
 class SWMode : public Mode {
@@ -18,3 +21,4 @@ class SWMode : public Mode {
         void draw();
 };
 
+#endif
