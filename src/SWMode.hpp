@@ -8,8 +8,8 @@ class SWMode : public Mode {
         bool display();
 
     private:
-        bool dbcStart = false;
-        bool dbcReset = false;
+        bool dbcStart = true;
+        bool dbcReset = true;
 
         time_t startTime = 0;
         long startMillis = 0;

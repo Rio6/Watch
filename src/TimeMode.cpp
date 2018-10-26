@@ -63,7 +63,7 @@ void TimeMode::printTime() {
     screen.setCursor((screen.xMax - screen.getPrintWidth(hmMsg)) / 2, (screen.yMax - hmH) / 2);
     screen.print(hmMsg);
 
-    screen.setFont(liberationSansNarrow_16ptFontInfo);
+    screen.setFont(liberationSansNarrow_edited_16ptFontInfo);
     screen.setCursor((screen.xMax - screen.getPrintWidth(secMsg)) / 2, (screen.yMax + hmH) / 2 + 2);
     screen.print(secMsg);
 }

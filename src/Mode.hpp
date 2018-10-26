@@ -8,6 +8,7 @@ class Mode {
         virtual void start() {};
         virtual bool display() = 0;
         virtual void stop() {};
+        virtual bool isStd() {return true;};
 };
 
 #endif

@@ -12,7 +12,7 @@ class TimeMode : public Mode {
         static const int SET_BTN_HOLD = 3000;
 
         bool showDate;
-        bool debounce = false;
+        bool debounce = true;
         long timeSetBtn = 0;
 
         void printDate();

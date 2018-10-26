@@ -7,16 +7,22 @@ class SetTimeMode : public Mode {
     public:
         bool display();
         void stop();
+        bool isStd() {return false;};
 
     private:
         static const int BLINK_TIME = 1000;
 
         bool dbcReturn = true;
-        enum {
+        bool dbcInc = true;
+        bool dbcDec = true;
+        bool dbcFocus = true;
+
+        enum Focus {
             HOUR,
             MIN,
-            SEC
-        } focus = HOUR;
+            SEC,
+            FOCUS_C
+        } focus;
 
         void printTime();
 };

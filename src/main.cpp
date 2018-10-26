@@ -59,8 +59,7 @@ void standby() {
 
 void nextMode() {
     mode->stop();
-    modeI++;
-    modeI %= modeC;
+    modeI = (modeI + 1) % modeC;
     mode = stdModes[modeI];
     mode->start();
 }
@@ -75,14 +74,16 @@ void loop() {
     setTime(rtc.getHours(), rtc.getMinutes(), rtc.getSeconds(),
             rtc.getDay(), rtc.getMonth(), rtc.getYear() + 2000);
 
-    bool debounce = false;
+    bool debounce = true;
     for(long start = millis(); millis() - start < DURATION;) {
-        if(screen.getButtons(TSButtonLowerLeft)) {
-            if(!debounce) {
-                nextMode();
-            }
-            debounce = true;
-        } else debounce = false;
+        if(mode->isStd()) {
+            if(screen.getButtons(TSButtonLowerLeft)) {
+                if(!debounce) {
+                    nextMode();
+                }
+                debounce = true;
+            } else debounce = false;
+        }
 
         bool active = mode->display();
         if(active) start = millis();

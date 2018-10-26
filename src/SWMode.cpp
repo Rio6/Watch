@@ -4,6 +4,7 @@
 
 #include "SWMode.hpp"
 #include "main.hpp"
+#include "myFont.h"
 
 bool SWMode::display() {
     screen.fontColor(TS_8b_Blue, TS_8b_Black);
@@ -50,13 +51,13 @@ void SWMode::draw() {
         sprintf(botMsg, "%02d", centi);
     }
 
-    screen.setFont(liberationSansNarrow_22ptFontInfo);
+    screen.setFont(liberationSansNarrow_edited_22ptFontInfo);
     uint8_t hmH = screen.getFontHeight();
 
     screen.setCursor((screen.xMax - screen.getPrintWidth(topMsg)) / 2, (screen.yMax - hmH) / 2);
     screen.print(topMsg);
 
-    screen.setFont(liberationSansNarrow_16ptFontInfo);
+    screen.setFont(liberationSansNarrow_edited_16ptFontInfo);
     screen.setCursor((screen.xMax - screen.getPrintWidth(botMsg)) / 2, (screen.yMax + hmH) / 2 + 2);
     screen.print(botMsg);
 }

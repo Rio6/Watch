@@ -15,6 +15,13 @@ bool SetTimeMode::display() {
         }
     } else dbcReturn = false;
 
+    if(screen.getButtons(TSButtonLowerLeft)) {
+        if(!dbcFocus) {
+            focus = static_cast<Focus>((focus + 1) % FOCUS_C);
+        }
+        dbcFocus = true;
+    } else dbcFocus = false;
+
     printTime();
 
     return true;
@@ -43,6 +50,8 @@ void SetTimeMode::printTime() {
             case SEC:
                 secMsg[0] = secMsg[1] = ' ';
                 break;
+            default:
+                break;
         }
     }
 
@@ -52,7 +61,7 @@ void SetTimeMode::printTime() {
     screen.setCursor((screen.xMax - screen.getPrintWidth(hmMsg)) / 2, (screen.yMax - hmH) / 2);
     screen.print(hmMsg);
 
-    screen.setFont(liberationSansNarrow_16ptFontInfo);
+    screen.setFont(liberationSansNarrow_edited_16ptFontInfo);
     screen.setCursor((screen.xMax - screen.getPrintWidth(secMsg)) / 2, (screen.yMax + hmH) / 2 + 2);
     screen.print(secMsg);
 
