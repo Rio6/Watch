@@ -21,8 +21,11 @@ class SetTimeMode : public Mode {
             HOUR,
             MIN,
             SEC,
+            YEAR,
+            MONTH,
+            DAY,
             FOCUS_C
-        } focus;
+        } focus = HOUR;
 
         void printTime();
 };

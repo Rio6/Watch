@@ -71,8 +71,7 @@ void setMode(Mode *newMode) {
 }
 
 void loop() {
-    setTime(rtc.getHours(), rtc.getMinutes(), rtc.getSeconds(),
-            rtc.getDay(), rtc.getMonth(), rtc.getYear() + 2000);
+    setTime(rtc.getEpoch());
 
     bool debounce = true;
     for(long start = millis(); millis() - start < DURATION;) {
