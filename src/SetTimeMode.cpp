@@ -76,7 +76,7 @@ bool SetTimeMode::display() {
                     adjustTime(adj * SECS_PER_DAY * whyDoMonthsHaveDifferentDays);
                 }
                 break;
-            case YEAR:
+            case YEAR: // FIXME
                 {
                     int y = year();
                     if(adj < 0) y += adj;

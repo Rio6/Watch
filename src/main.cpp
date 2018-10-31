@@ -87,8 +87,9 @@ void loop() {
         bool active = mode->display();
         if(active) start = millis();
 
-        if(getBattVoltage() < 3.5f)
-            printBattery();
+        float volt = getBattVoltage();
+        if(volt < 3.5f || volt > 3.9f)
+            printBattery(volt);
     }
     standby();
 }

@@ -3,5 +3,6 @@
 
 float getBattVoltage();
 void printBattery();
+void printBattery(float);
 
 #endif

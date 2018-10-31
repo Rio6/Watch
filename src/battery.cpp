@@ -40,11 +40,15 @@ float getBattVoltage() {
     return battVoltage;
 }
 
-void printBattery() {
+void printBattery(float volt) {
     char msg[5];
-    dtostrf(getBattVoltage(), 4, 1, msg);
+    dtostrf(volt, 4, 1, msg);
 
-    screen.fontColor(TS_8b_Red,TS_8b_Black);
+    if(volt < 3.5f)
+        screen.fontColor(TS_8b_Red,TS_8b_Black);
+    else
+        screen.fontColor(TS_8b_Green,TS_8b_Black);
+
     screen.setFont(liberationSansNarrow_8ptFontInfo);
     screen.setCursor(
             screen.xMax - screen.getPrintWidth(msg) - screen.getPrintWidth(" V"),
@@ -52,4 +56,8 @@ void printBattery() {
 
     screen.print(msg);
     screen.print(" V");
+}
+
+void printBattery() {
+    printBattery(getBattVoltage());
 }

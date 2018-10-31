@@ -42,8 +42,8 @@ void TimeMode::stop() {
 }
 
 void TimeMode::printDate() {
-    char msg[13];
-    sprintf(msg, "%04d/%02d/%02d %s", year(), month(), day(), dayShortStr(weekday()));
+    char msg[10];
+    sprintf(msg, "%02d/%02d %s", month(), day(), dayShortStr(weekday()));
 
     screen.setFont(liberationSansNarrow_8ptFontInfo);
     screen.setCursor((screen.xMax - screen.getPrintWidth(msg)) / 2, 2);
