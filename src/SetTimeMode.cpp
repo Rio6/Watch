@@ -76,17 +76,21 @@ bool SetTimeMode::display() {
                     adjustTime(adj * SECS_PER_DAY * whyDoMonthsHaveDifferentDays);
                 }
                 break;
-            case YEAR: // FIXME
+            case YEAR:
                 {
                     int y = year();
-                    if(adj < 0) y += adj;
-                    adjustTime(adj * SECS_PER_DAY * ((y % 4 == 0) ? 366 : 365));
+
+                    int whyDoYearsHaveDifferentDays = 365;
+                    if((adj > 0 && ((y % 4 == 0 && month() <= 2) || (y % 4 == 3 && month() > 2))) ||
+                       (adj < 0 && ((y % 4 == 1 && month() <= 2) || (y % 4 == 0 && month() > 2))))
+                       whyDoYearsHaveDifferentDays = 366;
+
+                    adjustTime(adj * SECS_PER_DAY * whyDoYearsHaveDifferentDays);
                 }
                 break;
             default:
                 break;
         }
-        rtc.setEpoch(now());
     }
 
     printTime();
@@ -95,6 +99,8 @@ bool SetTimeMode::display() {
 }
 
 void SetTimeMode::stop() {
+    rtc.setEpoch(now());
+
     screen.clearScreen();
     if(mode == this)
         delete mode;

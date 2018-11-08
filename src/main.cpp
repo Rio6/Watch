@@ -88,7 +88,7 @@ void loop() {
         if(active) start = millis();
 
         float volt = getBattVoltage();
-        if(volt < 3.5f || volt > 3.9f)
+        if(volt < 3.5f || volt > 4.1f)
             printBattery(volt);
     }
     standby();
