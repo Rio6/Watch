@@ -7,6 +7,7 @@
 #include "TimeMode.hpp"
 #include "SWMode.hpp"
 #include "battery.h"
+#include "main.hpp"
 
 const uint8_t BRIGHTNESS = 10;
 const unsigned int DURATION = 5000;
@@ -22,11 +23,13 @@ Mode *mode = stdModes[modeI];
 void setup() {
     rtc.begin();
 
+    SerialUSB.begin(9600);
+
     screen.begin();
     screen.setFlip(1);
     screen.fontColor(TS_8b_White,TS_8b_Black);
     screen.setBrightness(BRIGHTNESS);
-
+/*
     char s_month[5];
     int month, day, year, hour, minute, second;
     static const char month_names[] = "JanFebMarAprMayJunJulAugSepOctNovDec";
@@ -37,6 +40,7 @@ void setup() {
 
     rtc.setTime(hour, minute, second);
     rtc.setDate(day, month + 1, year - 2000);
+    */
 }
 
 void standby() {
@@ -62,12 +66,18 @@ void nextMode() {
     modeI = (modeI + 1) % modeC;
     mode = stdModes[modeI];
     mode->start();
+    playSound();
 }
 
 void setMode(Mode *newMode) {
     mode->stop();
     mode = newMode;
     mode->start();
+    playSound();
+}
+
+void playSound(int freq, int duration) {
+    tone(5, freq, duration);
 }
 
 void loop() {

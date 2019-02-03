@@ -17,6 +17,7 @@ bool SWMode::display() {
                 startMillis = millis();
             }
             zeroed = false;
+            playSound();
         }
         dbcStart = true;
     } else dbcStart = false;
@@ -26,6 +27,7 @@ bool SWMode::display() {
             time = 0;
             centi = 0;
             zeroed = true;
+            playSound();
         }
         dbcReset = true;
     } else dbcReset = false;

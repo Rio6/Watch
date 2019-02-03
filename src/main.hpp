@@ -15,4 +15,6 @@ extern Mode *mode;
 void nextMode();
 void setMode(Mode*);
 
+void playSound(int freq = 2637, int duration = 50);
+
 #endif
