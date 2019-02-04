@@ -98,12 +98,14 @@ bool SetTimeMode::display() {
     return true;
 }
 
+void SetTimeMode::start() {
+    dbcReturn = true;
+    focus = HOUR;
+}
+
 void SetTimeMode::stop() {
     rtc.setEpoch(now());
-
     screen.clearScreen();
-    if(mode == this)
-        delete mode;
 }
 
 void SetTimeMode::printTime() {

@@ -6,6 +6,7 @@
 class SetTimeMode : public Mode {
     public:
         bool display();
+        void start();
         void stop();
         bool isStd() {return false;};
 
