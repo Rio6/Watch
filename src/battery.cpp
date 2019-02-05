@@ -52,7 +52,7 @@ void printBattery(float volt) {
     screen.setFont(liberationSansNarrow_8ptFontInfo);
     screen.setCursor(
             screen.xMax - screen.getPrintWidth(msg) - screen.getPrintWidth(" V"),
-            screen.yMax - screen.getFontHeight() - 10);
+            screen.yMax - screen.getFontHeight());
 
     screen.print(msg);
     screen.print(" V");
