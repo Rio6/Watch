@@ -8,35 +8,24 @@
 bool SetTimeMode::display() {
     screen.fontColor(TS_8b_Green,TS_8b_Black);
 
-    if(screen.getButtons(TSButtonUpperLeft)) {
-        if(!dbcReturn) {
-            setMode(stdModes[0]);
-            return true;
-        }
-    } else dbcReturn = false;
+    debounceStart(screen, TSButtonUpperLeft) {
+        setMode(modes::TimeMode);
+        return true;
+    } debounceEnd(TSButtonUpperLeft);
 
-    if(screen.getButtons(TSButtonLowerLeft)) {
-        if(!dbcFocus) {
-            focus = static_cast<Focus>((focus + 1) % FOCUS_C);
-        }
-        dbcFocus = true;
-    } else dbcFocus = false;
+    debounceStart(screen, TSButtonLowerLeft) {
+        focus = static_cast<Focus>((focus + 1) % FOCUS_C);
+    } debounceEnd(TSButtonLowerLeft);
 
     int adj = 0;
 
-    if(screen.getButtons(TSButtonUpperRight)) {
-        if(!dbcInc) {
-            adj += 1;
-        }
-        dbcInc = true;
-    } else dbcInc = false;
+    debounceStart(screen, TSButtonUpperRight) {
+        adj += 1;
+    } debounceEnd(TSButtonUpperRight);
 
-    if(screen.getButtons(TSButtonLowerRight)) {
-        if(!dbcDec) {
-            adj -= 1;
-        }
-        dbcDec = true;
-    } else dbcDec = false;
+    debounceStart(screen, TSButtonLowerRight) {
+        adj -= 1;
+    } debounceEnd(TSButtonLowerRight);
 
     if(adj) {
         switch(focus) {
@@ -82,8 +71,8 @@ bool SetTimeMode::display() {
 
                     int whyDoYearsHaveDifferentDays = 365;
                     if((adj > 0 && ((y % 4 == 0 && month() <= 2) || (y % 4 == 3 && month() > 2))) ||
-                       (adj < 0 && ((y % 4 == 1 && month() <= 2) || (y % 4 == 0 && month() > 2))))
-                       whyDoYearsHaveDifferentDays = 366;
+                            (adj < 0 && ((y % 4 == 1 && month() <= 2) || (y % 4 == 0 && month() > 2))))
+                        whyDoYearsHaveDifferentDays = 366;
 
                     adjustTime(adj * SECS_PER_DAY * whyDoYearsHaveDifferentDays);
                 }
@@ -99,7 +88,6 @@ bool SetTimeMode::display() {
 }
 
 void SetTimeMode::start() {
-    dbcReturn = true;
     focus = HOUR;
 }
 

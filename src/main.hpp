@@ -6,11 +6,24 @@
 
 #include "Mode.hpp"
 
+#define debounceStart(screen, btn) \
+    if(screen.getButtons(btn)) {\
+        bool run = !(debounce & btn);\
+        debounce |= btn;\
+        if(run)
+
+#define debounceEnd(btn) \
+    } else debounce &= ~btn
+
 extern RTCZero rtc;
 extern TinyScreen screen;
 
-extern Mode *stdModes[];
 extern Mode *mode;
+namespace modes {
+    extern Mode *TimeMode, *SetTimeMode, *SWMode;
+};
+
+extern byte debounce;
 
 void nextMode();
 void setMode(Mode*);

@@ -1,5 +1,5 @@
-#ifndef _MODE_H_
-#define _MODE_H_
+#ifndef MODE_H
+#define MODE_H
 
 class Mode {
     public:
@@ -8,7 +8,6 @@ class Mode {
         virtual void start() {};
         virtual bool display() = 0;
         virtual void stop() {};
-        virtual bool isStd() {return true;};
 };
 
 #endif

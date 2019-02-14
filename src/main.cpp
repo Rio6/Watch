@@ -4,7 +4,9 @@
 #include <TimeLib.h>
 #include <stdio.h>
 
+#include "Mode.hpp"
 #include "TimeMode.hpp"
+#include "SetTimeMode.hpp"
 #include "SWMode.hpp"
 #include "battery.h"
 #include "main.hpp"
@@ -15,10 +17,12 @@ const unsigned int DURATION = 5000;
 RTCZero rtc;
 TinyScreen screen = TinyScreen(TinyScreenPlus); //Create the TinyScreen object
 
-const int modeC = 2;
-int modeI = 0;
-Mode *stdModes[modeC] = {new TimeMode(), new SWMode()};
-Mode *mode = stdModes[modeI];
+Mode *modes::TimeMode = new ::TimeMode();
+Mode *modes::SetTimeMode = new ::SetTimeMode();
+Mode *modes::SWMode = new ::SWMode();
+Mode *mode = modes::TimeMode;
+
+byte debounce = 0;
 
 void setup() {
     rtc.begin();
@@ -61,14 +65,6 @@ void standby() {
     screen.on();
 }
 
-void nextMode() {
-    mode->stop();
-    modeI = (modeI + 1) % modeC;
-    mode = stdModes[modeI];
-    mode->start();
-    playSound();
-}
-
 void setMode(Mode *newMode) {
     mode->stop();
     mode = newMode;
@@ -82,17 +78,7 @@ void playSound(int freq, int duration) {
 
 void loop() {
     setTime(rtc.getEpoch());
-
-    bool debounce = true;
     for(long start = millis(); millis() - start < DURATION;) {
-        if(mode->isStd()) {
-            if(screen.getButtons(TSButtonLowerLeft)) {
-                if(!debounce) {
-                    nextMode();
-                }
-                debounce = true;
-            } else debounce = false;
-        }
 
         bool active = mode->display();
         if(active) start = millis();

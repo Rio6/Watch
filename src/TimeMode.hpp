@@ -12,16 +12,12 @@ class TimeMode : public Mode {
     private:
         static const int SET_BTN_HOLD = 3000;
 
-        SetTimeMode settingMode = SetTimeMode();
-
         enum Extra {
             NONE,
             DATE,
             CLASS
         } extra;
 
-        bool dbcDate = true;
-        bool dbcClass = true;
         long timeSetBtn = 0;
 
         void printDate();

@@ -8,15 +8,9 @@ class SetTimeMode : public Mode {
         bool display();
         void start();
         void stop();
-        bool isStd() {return false;};
 
     private:
         static const int BLINK_TIME = 1000;
-
-        bool dbcReturn = true;
-        bool dbcInc = true;
-        bool dbcDec = true;
-        bool dbcFocus = true;
 
         enum Focus {
             HOUR,

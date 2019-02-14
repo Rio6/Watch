@@ -1,3 +1,6 @@
+#ifndef TIMETABLE_H
+#define TIMETABLE_H
+
 #include <map>
 #include <array>
 #include <vector>
@@ -85,3 +88,5 @@ namespace timeTable {
         }}
     };
 };
+
+#endif

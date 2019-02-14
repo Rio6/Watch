@@ -1,4 +1,3 @@
-#include <Arduino.h>
 #include <TimeLib.h>
 #include <stdio.h>
 
@@ -9,28 +8,27 @@
 bool SWMode::display() {
     screen.fontColor(TS_8b_Blue, TS_8b_Black);
 
-    if(screen.getButtons(TSButtonUpperRight)) {
-        if(!dbcStart) {
-            running = !running;
-            if(running && zeroed) {
-                startTime = now();
-                startMillis = millis();
-            }
-            zeroed = false;
-            playSound();
+    debounceStart(screen, TSButtonUpperRight) {
+        running = !running;
+        if(running && zeroed) {
+            startTime = now();
+            startMillis = millis();
         }
-        dbcStart = true;
-    } else dbcStart = false;
+        zeroed = false;
+        playSound();
+    } debounceEnd(TSButtonUpperRight);
 
-    if(screen.getButtons(TSButtonUpperLeft)) {
-        if(!dbcReset) {
-            time = 0;
-            centi = 0;
-            zeroed = true;
-            playSound();
-        }
-        dbcReset = true;
-    } else dbcReset = false;
+    debounceStart(screen, TSButtonUpperLeft) {
+        time = 0;
+        centi = 0;
+        zeroed = true;
+        playSound();
+    } debounceEnd(TSButtonUpperLeft);
+
+    debounceStart(screen, TSButtonLowerLeft) {
+        setMode(modes::TimeMode);
+        return true;
+    } debounceEnd(TSButtonLowerLeft);
 
     if(running) {
         time = now() - startTime;

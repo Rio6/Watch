@@ -1,6 +1,3 @@
-#include <Arduino.h>
-#undef max // To fix problems
-#undef min // when including std headers
 #include <TimeLib.h>
 #include <stdio.h>
 #include <algorithm>
@@ -13,38 +10,46 @@
 bool TimeMode::display() {
     screen.fontColor(TS_8b_Green,TS_8b_Black);
 
-    if(screen.getButtons(TSButtonUpperRight)) {
-        if(!dbcDate) {
-            extra = extra != DATE ? DATE : NONE;
-            screen.clearScreen();
-        }
-        dbcDate = true;
-    } else dbcDate = false;
+    bool active = false;
 
-    if(screen.getButtons(TSButtonLowerRight)) {
-        if(!dbcClass) {
-            extra = extra != CLASS ? CLASS : NONE;
-            screen.clearScreen();
-        }
-        dbcClass = true;
-    } else dbcClass = false;
+    debounceStart(screen, TSButtonUpperRight) {
+        extra = extra != DATE ? DATE : NONE;
+        screen.clearScreen();
+        active = true;
+    } debounceEnd(TSButtonUpperRight);
+
+    debounceStart(screen, TSButtonLowerRight) {
+        extra = extra != CLASS ? CLASS : NONE;
+        screen.clearScreen();
+        active = true;
+    } debounceEnd(TSButtonLowerRight);
+
+    debounceStart(screen, TSButtonLowerLeft){
+        setMode(modes::SWMode);
+        return true;
+    } debounceEnd(TSButtonLowerLeft);
 
     if(screen.getButtons(TSButtonUpperLeft)) {
+        debounce |= TSButtonUpperLeft;
         if(timeSetBtn < 0) {
             timeSetBtn = millis();
+            active = true;
         } else if(millis() - timeSetBtn > SET_BTN_HOLD) {
-            setMode(&settingMode);
+            setMode(modes::SetTimeMode);
             timeSetBtn = -1;
             return true;
         }
-    } else timeSetBtn = -1;
+    } else {
+        timeSetBtn = -1;
+        debounce &= ~TSButtonUpperLeft;
+    }
 
     if(extra == DATE) printDate();
     else if(extra == CLASS) printClass();
 
     printTime();
 
-    return dbcDate || dbcClass || timeSetBtn > 0;
+    return active;
 }
 
 void TimeMode::stop() {
