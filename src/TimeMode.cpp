@@ -52,10 +52,6 @@ bool TimeMode::display() {
     return active;
 }
 
-void TimeMode::stop() {
-    screen.clearScreen();
-}
-
 void TimeMode::printDate() {
     char msg[10];
     sprintf(msg, "%02d/%02d %s", month(), day(), dayShortStr(weekday()));

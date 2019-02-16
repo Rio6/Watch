@@ -2,12 +2,10 @@
 #define TIMEMODE_H
 
 #include "Mode.hpp"
-#include "SetTimeMode.hpp"
 
 class TimeMode : public Mode {
     public:
         bool display();
-        void stop();
 
     private:
         static const int SET_BTN_HOLD = 3000;

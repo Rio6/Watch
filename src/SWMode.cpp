@@ -26,7 +26,7 @@ bool SWMode::display() {
     } debounceEnd(TSButtonUpperLeft);
 
     debounceStart(screen, TSButtonLowerLeft) {
-        setMode(modes::TimeMode);
+        setMode(modes::ChTimeMode);
         return true;
     } debounceEnd(TSButtonLowerLeft);
 

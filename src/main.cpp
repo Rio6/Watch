@@ -8,7 +8,8 @@
 #include "TimeMode.hpp"
 #include "SetTimeMode.hpp"
 #include "SWMode.hpp"
-#include "battery.h"
+#include "ChTimeMode.hpp"
+#include "battery.hpp"
 #include "main.hpp"
 
 const uint8_t BRIGHTNESS = 10;
@@ -20,6 +21,7 @@ TinyScreen screen = TinyScreen(TinyScreenPlus); //Create the TinyScreen object
 Mode *modes::TimeMode = new ::TimeMode();
 Mode *modes::SetTimeMode = new ::SetTimeMode();
 Mode *modes::SWMode = new ::SWMode();
+Mode *modes::ChTimeMode = new ::ChTimeMode();
 Mode *mode = modes::TimeMode;
 
 byte debounce = 0;
@@ -33,7 +35,7 @@ void setup() {
     screen.setFlip(1);
     screen.fontColor(TS_8b_White,TS_8b_Black);
     screen.setBrightness(BRIGHTNESS);
-/*
+
     char s_month[5];
     int month, day, year, hour, minute, second;
     static const char month_names[] = "JanFebMarAprMayJunJulAugSepOctNovDec";
@@ -44,7 +46,6 @@ void setup() {
 
     rtc.setTime(hour, minute, second);
     rtc.setDate(day, month + 1, year - 2000);
-    */
 }
 
 void standby() {
@@ -68,6 +69,7 @@ void standby() {
 void setMode(Mode *newMode) {
     mode->stop();
     mode = newMode;
+    screen.clearScreen();
     mode->start();
     playSound();
 }

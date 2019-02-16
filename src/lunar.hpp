@@ -1,4 +1,6 @@
 // Copied and edited from https://drive.google.com/file/d/0BxwUdFnrQGeKUGUyajY3dkdZWHM/edit
+#ifndef LUNAR_H
+#define _LUNAR_H
 
 // 用16進位儲存 1900-2100 年之農曆資料陣列
 // 起算日為國曆1900年01月31日即農曆1900年元月初一
@@ -31,18 +33,20 @@ static int lunarInfo[] = {
 };
 
 /*
- * 　。一丁七三丑丙乙九二五亥八六初刻十卅午卌卯四壬子寅己巳庚廿戊戌日月未正甲申癸辛辰酉
- * A B C D E F G H I J K L M N O P Q R S T U V W X Y Z [ \ ] ^ _ ` a b c d e f g h i j
+ * 　。一丁七三丑丙乙九二五亥八六初刻十卅午卌卯四壬子寅己巳年庚廿戊戌日時月未正甲申癸辛辰酉
+ * A B C D E F G H I J K L M N O P Q R S T U V W X Y Z [ \ ] ^ _ ` a b c d e f g h i j k l
  */
 
-static char tiangan[] = {'e', 'I', 'H', 'D', '_', '[', ']', 'h', 'X', 'g'};
+static char tiangan[] = {'g', 'I', 'H', 'D', '`', '[', '^', 'j', 'X', 'i'};
 //                      {'甲','乙','丙','丁','戊','己','庚','辛','壬','癸'};
-static char dizhi[] = {'Y', 'G', 'Z', 'V', 'i', '\\', 'T', 'c', 'f', 'j', '`', 'M'};
+static char dizhi[] = {'Y', 'G', 'Z', 'V', 'k', '\\','T', 'e', 'h', 'l', 'a', 'M'};
 //                    {'子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'};
-static char nStr1[] = {'a', 'C', 'K', 'F', 'W', 'L', 'O', 'E', 'N', 'J', 'R'};
+static char nStr1[] = {'b', 'C', 'K', 'F', 'W', 'L', 'O', 'E', 'N', 'J', 'R'};
 //                    {'日','一','二','三','四','五','六','七','八','九','十'};
-static char nStr2[] = {'P', 'R', '^', 'S', 'U'};
+static char nStr2[] = {'P', 'R', '_', 'S', 'U'};
 //                    {'初','十','廿','卅','卌'};
+static char halfs[] = {'P', 'f'};
+//                    {'初','正'};
 
 // 傳回農曆 y年閏哪個月 1-12 , 沒閏傳回 0
 static int leapMonth(int y) {
@@ -72,7 +76,7 @@ static int monthDays(int y, int m) {
 
 static void getLunar(time_t now, int *year, int *month, int *day) {
 
-    int offset = now / 864000 + 25537;
+    int offset = now / 86400 + 25537;
 
     int y;
     for(y = 1900; y < 2100; y++) {
@@ -124,23 +128,4 @@ static void getLunar(time_t now, int *year, int *month, int *day) {
     *day = offset + 1;
 }
 
-static void getChYear(int year, char[3] cy) {
-    int offset = year - 1864; // 1864 是甲子年
-    sprintf(cy, "%c%c", tiangan[offset%10], dizhi[offset%12]);
-}
-
-static void getChMonth(int month, char[4] cm) {
-    if(month >= 10) {
-        sprintf(cm, "%c%c月", nStr2[month/10], nStr1[month%10]);
-    } else {
-        sprintf(cm, "%c月", nStr1[month]);
-    }
-}
-
-static void getChDay(int day, char[3] cd) {
-    sprintf(cd, "%c%c", nStr1[day/10], nStr1[day%10]);
-}
-
-static void getChWeekday(int wday, char[2] cw) {
-    sprintf(cw, "%c", nStr1[wday-1]); // i'll trust wday to be [1,6]
-}
+#endif
