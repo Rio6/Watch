@@ -30,10 +30,19 @@ static int lunarInfo[] = {
     0xd520,0xdaa0,0x6aa6,0x56df,0x4ae0,0xa9d4,0xa4d0,0xd150,0xf252,0xd520, // 2100
 };
 
-static char tianGan[] = {'甲','乙','丙','丁','戊','己','庚','辛','壬','癸'};
-static char diZhi[] = {'子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'};
-static char nStr1[] = {'日','一','二','三','四','五','六','七','八','九','十'};
-static char nStr2[] = {'初','十','廿','卅','卌'};
+/*
+ * 。一丁七三丑丙乙九二五亥八六初十卅午卌卯四壬子寅己巳庚廿戊戌日未甲申癸辛辰酉
+ * A B C D E F G H I J K L M N O P Q R S T U V W X Y Z [ \ ] ^ _ ` a b c d e f
+ */
+
+static char tiangan[] = {'a', 'H', 'G', 'C', ']', 'Y', '[', 'd', 'V', 'c'};
+//                      {'甲','乙','丙','丁','戊','己','庚','辛','壬','癸'};
+static char dizhi[] = {'W', 'F', 'X', 'T', 'e', 'Z', 'R', '`', 'b', 'f', '^', 'L'};
+//                    {'子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'};
+static char nStr1[] = {'_', 'B', 'J', 'E', 'U', 'K', 'N', 'D', 'M', 'I', 'P'};
+//                    {'日','一','二','三','四','五','六','七','八','九','十'};
+static char nStr2[] = {'O', 'P', '\\', 'Q', 'S'};
+//                    {'初','十','廿','卅','卌'};
 
 // 傳回農曆 y年閏哪個月 1-12 , 沒閏傳回 0
 static int leapMonth(int y) {
@@ -113,4 +122,25 @@ static void getLunar(time_t now, int *year, int *month, int *day) {
 
     *month = m;
     *day = offset + 1;
+}
+
+static void getChYear(int year, char[3] cy) {
+    int offset = year - 1864; // 1864 是甲子年
+    sprintf(cy, "%c%c", tiangan[offset%10], dizhi[offset%12]);
+}
+
+static void getChMonth(int month, char[4] cm) {
+    if(month >= 10) {
+        sprintf(cm, "%c%c月", nStr2[month/10], nStr1[month%10]);
+    } else {
+        sprintf(cm, "%c月", nStr1[month]);
+    }
+}
+
+static void getChDay(int day, char[3] cd) {
+    sprintf(cd, "%c%c", nStr1[day/10], nStr1[day%10]);
+}
+
+static void getChWeekday(int wday, char[2] cw) {
+    sprintf(cw, "%c", nStr1[wday-1]); // i'll trust wday to be [1,6]
 }
