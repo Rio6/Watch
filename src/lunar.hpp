@@ -31,17 +31,17 @@ static int lunarInfo[] = {
 };
 
 /*
- * 。一丁七三丑丙乙九二五亥八六初十卅午卌卯四壬子寅己巳庚廿戊戌日未甲申癸辛辰酉
- * A B C D E F G H I J K L M N O P Q R S T U V W X Y Z [ \ ] ^ _ ` a b c d e f
+ * 　。一丁七三丑丙乙九二五亥八六初刻十卅午卌卯四壬子寅己巳庚廿戊戌日月未正甲申癸辛辰酉
+ * A B C D E F G H I J K L M N O P Q R S T U V W X Y Z [ \ ] ^ _ ` a b c d e f g h i j
  */
 
-static char tiangan[] = {'a', 'H', 'G', 'C', ']', 'Y', '[', 'd', 'V', 'c'};
+static char tiangan[] = {'e', 'I', 'H', 'D', '_', '[', ']', 'h', 'X', 'g'};
 //                      {'甲','乙','丙','丁','戊','己','庚','辛','壬','癸'};
-static char dizhi[] = {'W', 'F', 'X', 'T', 'e', 'Z', 'R', '`', 'b', 'f', '^', 'L'};
+static char dizhi[] = {'Y', 'G', 'Z', 'V', 'i', '\\', 'T', 'c', 'f', 'j', '`', 'M'};
 //                    {'子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'};
-static char nStr1[] = {'_', 'B', 'J', 'E', 'U', 'K', 'N', 'D', 'M', 'I', 'P'};
+static char nStr1[] = {'a', 'C', 'K', 'F', 'W', 'L', 'O', 'E', 'N', 'J', 'R'};
 //                    {'日','一','二','三','四','五','六','七','八','九','十'};
-static char nStr2[] = {'O', 'P', '\\', 'Q', 'S'};
+static char nStr2[] = {'P', 'R', '^', 'S', 'U'};
 //                    {'初','十','廿','卅','卌'};
 
 // 傳回農曆 y年閏哪個月 1-12 , 沒閏傳回 0
