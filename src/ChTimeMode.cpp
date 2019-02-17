@@ -75,7 +75,7 @@ void ChTimeMode::printTime() {
     char kMsg[3];
 
     int h = hour(t);
-    sprintf(hMsg, "%c%c", dizhi[(h+1) % 12], halfs[(h+1)%2]);
+    sprintf(hMsg, "%c%c", dizhi[((h+1) % 24) / 2], halfs[(h+1)%2]);
 
     int m = minute(t);
     if(m < 15)
