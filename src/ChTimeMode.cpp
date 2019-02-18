@@ -79,7 +79,7 @@ void ChTimeMode::printTime() {
 
     int m = minute(t);
     if(m < 15)
-        sprintf(kMsg, "A"); // '　'
+        sprintf(kMsg, "AA"); // '　　'
     else
         sprintf(kMsg, "%cQ", nStr1[m/15]); // %c刻
 
