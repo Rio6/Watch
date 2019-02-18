@@ -38,14 +38,6 @@ void ChTimeMode::printDate() {
     char mMsg[4];
     char dMsg[3];
 
-    SerialUSB.print(t);
-    SerialUSB.print(":");
-    SerialUSB.print(y);
-    SerialUSB.print("/");
-    SerialUSB.print(m);
-    SerialUSB.print("/");
-    SerialUSB.print(d);
-
     int offset = y - 1864; // 1864 是甲子年
     sprintf(yMsg, "%c%c]", tiangan[offset%10], dizhi[offset%12]); // %c%c年
 
