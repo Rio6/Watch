@@ -36,6 +36,7 @@ void setup() {
     screen.fontColor(TS_8b_White,TS_8b_Black);
     screen.setBrightness(BRIGHTNESS);
 
+#if(SET_TIME)
     char s_month[5];
     int month, day, year, hour, minute, second;
     static const char month_names[] = "JanFebMarAprMayJunJulAugSepOctNovDec";
@@ -46,6 +47,7 @@ void setup() {
 
     rtc.setTime(hour, minute, second);
     rtc.setDate(day, month + 1, year - 2000);
+#endif
 }
 
 void standby() {

@@ -1,6 +1,8 @@
 #ifndef MAIN_H
 #define MAIN_H
 
+//#define SET_TIME 0 // set this through PLATFORMIO_SRC_BUILD_FLAGS="-DSET_TIME=1"
+
 #include <TinyScreen.h>
 #include <RTCZero.h>
 
