@@ -64,24 +64,26 @@ void ChTimeMode::printTime() {
     time_t t = now();
 
     char hMsg[4];
-    char kMsg[3];
 
     int h = hour(t);
     sprintf(hMsg, "%c%c", dizhi[((h+1) % 24) / 2], halfs[(h+1)%2]);
 
-    int m = minute(t);
-    if(m < 15)
-        sprintf(kMsg, "AA"); // '　　'
-    else
-        sprintf(kMsg, "%cQ", nStr1[m/15]); // %c刻
-
     screen.setFont(song_22ptFontInfo);
-    uint8_t hmH = screen.getFontHeight();
-
-    screen.setCursor((screen.xMax - screen.getPrintWidth(hMsg)) / 2, (screen.yMax - hmH) / 2);
+    screen.setCursor((screen.xMax - screen.getPrintWidth(hMsg)) / 2, (screen.yMax - screen.getFontHeight()) / 2);
     screen.print(hMsg);
 
     screen.setFont(song_8ptFontInfo);
-    screen.setCursor((screen.xMax - screen.getPrintWidth(kMsg)) / 2, (screen.yMax + hmH) / 2 + 2);
-    screen.print(kMsg);
+    uint8_t fh = screen.getFontHeight();
+    uint8_t fy = (screen.yMax + fh) / 2 + 10;
+
+    int m = minute(t);
+    if(m < 15) {
+        screen.drawRect(0, fy, screen.xMax, fh, true, 0);
+    } else {
+        char kMsg[3];
+        sprintf(kMsg, "%cQ", nStr1[m/15]); // %c刻
+
+        screen.setCursor((screen.xMax - screen.getPrintWidth(kMsg)) / 2, fy);
+        screen.print(kMsg);
+    }
 }
