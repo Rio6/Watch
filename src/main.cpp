@@ -84,6 +84,7 @@ void playSound(int freq, int duration) {
 
 void loop() {
     setTime(rtc.getEpoch());
+    screen.clearScreen();
     for(long start = millis(); millis() - start < DURATION;) {
 
         bool active = mode->display();
