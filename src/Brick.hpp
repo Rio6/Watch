@@ -30,6 +30,7 @@ class BrickMode : public Mode {
         BrickMode();
 
         void reset();
+        void start();
         bool display();
 
     private:

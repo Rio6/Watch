@@ -32,7 +32,11 @@ void BrickMode::reset() {
     ball.y = plat.y - ball.size;
 
     ball.vel = 0;
-    ball.angle = 4;
+    ball.angle = ((std::rand() % 2) * 1.4f - .7f) + 3 * M_PI / 2;
+}
+
+void BrickMode::start() {
+    lastTime = millis();
 }
 
 bool BrickMode::display() {
@@ -139,5 +143,5 @@ void BrickMode::ballCollision(float norm) {
     playSound(523);
     ball.angle = 2 * norm - ball.angle;
     while(ball.angle < 0) ball.angle += M_PI * 2;
-    while(ball.angle >= M_PI / 2) ball.angle -= M_PI * 2;
+    while(ball.angle >= M_PI * 2) ball.angle -= M_PI * 2;
 }

@@ -93,7 +93,6 @@ void SetTimeMode::start() {
 
 void SetTimeMode::stop() {
     rtc.setEpoch(now());
-    screen.clearScreen();
 }
 
 void SetTimeMode::printTime() {
