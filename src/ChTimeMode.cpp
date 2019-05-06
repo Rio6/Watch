@@ -77,13 +77,9 @@ void ChTimeMode::printTime() {
     uint8_t fy = (screen.yMax + fh) / 2 + 10;
 
     int m = minute(t);
-    if(m < 15) {
-        screen.drawRect(0, fy, screen.xMax, fh, true, 0);
-    } else {
-        char kMsg[3];
-        sprintf(kMsg, "%cQ", nStr1[m/15]); // %c刻
+    char kMsg[3];
+    sprintf(kMsg, "%cQ", nStr1[m/15+1]); // %c刻
 
-        screen.setCursor((screen.xMax - screen.getPrintWidth(kMsg)) / 2, fy);
-        screen.print(kMsg);
-    }
+    screen.setCursor((screen.xMax - screen.getPrintWidth(kMsg)) / 2, fy);
+    screen.print(kMsg);
 }
