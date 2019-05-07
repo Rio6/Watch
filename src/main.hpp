@@ -22,7 +22,7 @@ extern TinyScreen screen;
 
 extern Mode *mode;
 namespace modes {
-    extern Mode *TimeMode, *SetTimeMode, *SWMode, *ChTimeMode, *BrickMode;
+    extern Mode *TimeMode, *SetTimeMode, *SWMode, *ChTimeMode, *BrickMode, *NoteMode;
 };
 
 extern byte debounce;

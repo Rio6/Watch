@@ -6,6 +6,7 @@
 class TimeMode : public Mode {
     public:
         bool display();
+        void start();
 
     private:
         static const int SET_BTN_HOLD = 3000;

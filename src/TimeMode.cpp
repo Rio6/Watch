@@ -6,6 +6,7 @@
 #include "main.hpp"
 #include "myFont.h"
 #include "timeTable.hpp"
+#include "NoteMode.hpp"
 
 bool TimeMode::display() {
     screen.fontColor(TS_8b_Green,TS_8b_Black);
@@ -18,23 +19,29 @@ bool TimeMode::display() {
         active = true;
     } debounceEnd(TSButtonLowerRight);
 
-    debounceStart(screen, TSButtonLowerLeft){
+    debounceStart(screen, TSButtonLowerLeft) {
         setMode(modes::SWMode);
         return true;
     } debounceEnd(TSButtonLowerLeft);
 
     if(screen.getButtons(TSButtonUpperLeft)) {
         debounce |= TSButtonUpperLeft;
-        if(timeSetBtn < 0) {
-            timeSetBtn = millis();
-            active = true;
-        } else if(millis() - timeSetBtn > SET_BTN_HOLD) {
-            setMode(modes::SetTimeMode);
-            timeSetBtn = -1;
-            return true;
+        if(timeSetBtn >= 0) {
+            if(timeSetBtn == 0) {
+                timeSetBtn = millis();
+                active = true;
+            } else if(millis() - timeSetBtn > SET_BTN_HOLD) {
+                setMode(modes::SetTimeMode);
+                timeSetBtn = -1;
+                return true;
+            }
         }
     } else {
-        timeSetBtn = -1;
+        if(timeSetBtn >= 0 && debounce & TSButtonUpperLeft) {
+            setMode(modes::NoteMode);
+            return true;
+        }
+        timeSetBtn = 0;
         debounce &= ~TSButtonUpperLeft;
     }
 
@@ -42,6 +49,19 @@ bool TimeMode::display() {
     else if(extra == CLASS) printClass();
 
     printTime();
+
+    // Print notes
+    NoteMode *note = static_cast<NoteMode*>(modes::NoteMode);
+    if(note->getNum() > 0) {
+        char msg[3];
+        sprintf(msg, "%2d", note->getNum() % 100);
+        screen.setFont(liberationSansNarrow_16ptFontInfo);
+        screen.fontColor(TS_8b_Gray, TS_8b_Black);
+        screen.setCursor(2, screen.yMax - screen.getFontHeight());
+        screen.print(msg);
+    } else {
+        screen.drawRect(0, screen.yMax - 10, 40, 10, true, 0);
+    }
 
     return active;
 }
@@ -114,4 +134,8 @@ void TimeMode::printClass() {
     screen.setFont(liberationSansNarrow_8ptFontInfo);
     screen.setCursor((screen.xMax - screen.getPrintWidth(msg)) / 2, 2);
     screen.print(msg);
+}
+
+void TimeMode::start() {
+    timeSetBtn = -1;
 }
