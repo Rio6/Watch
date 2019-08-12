@@ -19,9 +19,9 @@ bool SetTimeMode::display() {
 
     int adj = 0;
 
-    debounceStart(screen, TSButtonLowerRight) {
+    debounceStart(screen, TSButtonUpperRight) {
         adj += 1;
-    } debounceEnd(TSButtonLowerRight);
+    } debounceEnd(TSButtonUpperRight);
 
     debounceStart(screen, TSButtonLowerRight) {
         adj -= 1;

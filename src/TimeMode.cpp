@@ -13,8 +13,14 @@ bool TimeMode::display() {
 
     bool active = false;
 
+    debounceStart(screen, TSButtonUpperRight) {
+        extra = extra != DATE ? DATE : NONE;
+        screen.clearScreen();
+        active = true;
+    } debounceEnd(TSButtonUpperRight);
+
     debounceStart(screen, TSButtonLowerRight) {
-        extra = (Extra) ((extra+1) % EXTRA_C);
+        extra = extra != CLASS ? CLASS : NONE;
         screen.clearScreen();
         active = true;
     } debounceEnd(TSButtonLowerRight);

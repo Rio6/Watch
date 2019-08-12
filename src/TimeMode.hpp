@@ -14,8 +14,7 @@ class TimeMode : public Mode {
         enum Extra {
             NONE,
             DATE,
-            CLASS,
-            EXTRA_C
+            CLASS
         } extra;
 
         long timeSetBtn = 0;
