@@ -8,7 +8,7 @@
 bool SWMode::display() {
     screen.fontColor(TS_8b_Blue, TS_8b_Black);
 
-    debounceStart(screen, TSButtonUpperRight) {
+    debounce(TSButtonUpperRight) {
         running = !running;
         if(running && zeroed) {
             startTime = now();
@@ -16,19 +16,19 @@ bool SWMode::display() {
         }
         zeroed = false;
         playSound();
-    } debounceEnd(TSButtonUpperRight);
+    }
 
-    debounceStart(screen, TSButtonUpperLeft) {
+    debounce(TSButtonUpperLeft) {
         time = 0;
         centi = 0;
         zeroed = true;
         playSound();
-    } debounceEnd(TSButtonUpperLeft);
+    }
 
-    debounceStart(screen, TSButtonLowerLeft) {
+    debounce(TSButtonLowerLeft) {
         setMode(modes::BrickMode);
         return true;
-    } debounceEnd(TSButtonLowerLeft);
+    }
 
     if(running) {
         time = now() - startTime;

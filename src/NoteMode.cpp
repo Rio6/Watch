@@ -5,18 +5,18 @@
 #include "myFont.h"
 
 bool NoteMode::display() {
-    debounceStart(screen, TSButtonUpperLeft) {
+    debounce(TSButtonUpperLeft) {
         setMode(modes::TimeMode);
         return true;
-    } debounceEnd(TSButtonUpperLeft);
+    }
 
-    debounceStart(screen, TSButtonLowerLeft) {
+    debounce(TSButtonLowerRight) {
         if(num > 0) num--;
-    } debounceEnd(TSButtonLowerLeft);
+    }
 
-    debounceStart(screen, TSButtonLowerRight) {
+    debounce(TSButtonUpperRight) {
         num++;
-    } debounceEnd(TSButtonLowerRight);
+    }
 
     char msg[3];
     sprintf(msg, "%2d", num % 100);

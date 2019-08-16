@@ -8,24 +8,24 @@
 bool SetTimeMode::display() {
     screen.fontColor(TS_8b_Green,TS_8b_Black);
 
-    debounceStart(screen, TSButtonUpperLeft) {
+    debounce(TSButtonUpperLeft) {
         setMode(modes::TimeMode);
         return true;
-    } debounceEnd(TSButtonUpperLeft);
+    }
 
-    debounceStart(screen, TSButtonLowerLeft) {
+    debounce(TSButtonLowerLeft) {
         focus = static_cast<Focus>((focus + 1) % FOCUS_C);
-    } debounceEnd(TSButtonLowerLeft);
+    }
 
     int adj = 0;
 
-    debounceStart(screen, TSButtonUpperRight) {
+    debounce(TSButtonUpperRight) {
         adj += 1;
-    } debounceEnd(TSButtonUpperRight);
+    }
 
-    debounceStart(screen, TSButtonLowerRight) {
+    debounce(TSButtonLowerRight) {
         adj -= 1;
-    } debounceEnd(TSButtonLowerRight);
+    }
 
     if(adj) {
         switch(focus) {

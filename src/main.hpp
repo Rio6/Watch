@@ -8,15 +8,6 @@
 
 #include "Mode.hpp"
 
-#define debounceStart(screen, btn) \
-    if(screen.getButtons(btn)) {\
-        bool run = !(debounce & btn);\
-        debounce |= btn;\
-        if(run)
-
-#define debounceEnd(btn) \
-    } else debounce &= ~btn
-
 extern RTCZero rtc;
 extern TinyScreen screen;
 
@@ -26,6 +17,10 @@ namespace modes {
 };
 
 extern byte debounce;
+#define debounce(btn) \
+    if(!screen.getButtons(btn)) {\
+        debounce &= ~btn;\
+    } else if(!(debounce & btn) && (debounce |= btn))
 
 void nextMode();
 void setMode(Mode*);

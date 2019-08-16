@@ -11,16 +11,16 @@ bool ChTimeMode::display() {
 
     bool active = false;
 
-    debounceStart(screen, TSButtonUpperRight) {
+    debounce(TSButtonUpperRight) {
         showDate = !showDate;
         screen.clearScreen();
         active = true;
-    } debounceEnd(TSButtonUpperRight);
+    }
 
-    debounceStart(screen, TSButtonLowerLeft){
+    debounce(TSButtonLowerLeft){
         setMode(modes::TimeMode);
         return true;
-    } debounceEnd(TSButtonLowerLeft);
+    }
 
     if(showDate) printDate();
 

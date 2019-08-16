@@ -19,6 +19,7 @@ const unsigned int DURATION = 5000;
 
 RTCZero rtc;
 TinyScreen screen = TinyScreen(TinyScreenPlus); //Create the TinyScreen object
+byte debounce = 0;
 
 Mode *modes::TimeMode = new ::TimeMode();
 Mode *modes::SetTimeMode = new ::SetTimeMode();
@@ -28,12 +29,13 @@ Mode *modes::BrickMode = new ::BrickMode();
 Mode *modes::NoteMode = new ::NoteMode();
 Mode *mode = modes::TimeMode;
 
-byte debounce = 0;
-
 void setup() {
     rtc.begin();
 
     SerialUSB.begin(9600);
+
+    pinMode(5, OUTPUT); // Speaker
+    pinMode(6, INPUT); // Connected to pin 5, so set to input to prevent short circuit
 
     screen.begin();
     screen.setFlip(1);

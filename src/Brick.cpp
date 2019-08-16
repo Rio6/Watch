@@ -41,10 +41,10 @@ void BrickMode::start() {
 
 bool BrickMode::display() {
 
-    debounceStart(screen, TSButtonUpperLeft) {
+    debounce(TSButtonUpperLeft) {
         setMode(modes::ChTimeMode);
         return true;
-    } debounceEnd(TSButtonUpperLeft);
+    }
 
     long now = millis();
     int ct = (now - lastTime) / 10;

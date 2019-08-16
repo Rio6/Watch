@@ -13,22 +13,22 @@ bool TimeMode::display() {
 
     bool active = false;
 
-    debounceStart(screen, TSButtonUpperRight) {
+    debounce(TSButtonUpperRight) {
         extra = extra != DATE ? DATE : NONE;
         screen.clearScreen();
         active = true;
-    } debounceEnd(TSButtonUpperRight);
+    }
 
-    debounceStart(screen, TSButtonLowerRight) {
+    debounce(TSButtonLowerRight) {
         extra = extra != CLASS ? CLASS : NONE;
         screen.clearScreen();
         active = true;
-    } debounceEnd(TSButtonLowerRight);
+    }
 
-    debounceStart(screen, TSButtonLowerLeft) {
+    debounce(TSButtonLowerLeft) {
         setMode(modes::SWMode);
         return true;
-    } debounceEnd(TSButtonLowerLeft);
+    }
 
     if(screen.getButtons(TSButtonUpperLeft)) {
         debounce |= TSButtonUpperLeft;
