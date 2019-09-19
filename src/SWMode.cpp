@@ -18,11 +18,13 @@ bool SWMode::display() {
         playSound();
     }
 
-    debounce(TSButtonUpperLeft) {
-        time = 0;
-        centi = 0;
-        zeroed = true;
-        playSound();
+    debounce(TSButtonLowerRight) {
+        if(!running) {
+            time = 0;
+            centi = 0;
+            zeroed = true;
+            playSound();
+        }
     }
 
     debounce(TSButtonLowerLeft) {
@@ -31,8 +33,13 @@ bool SWMode::display() {
     }
 
     if(running) {
-        time = now() - startTime;
-        centi = (int) (((millis() - startMillis) / 10) % 100);
+        int newTime = now() - startTime;
+        if(newTime != time) {
+            time = newTime;
+            startMillis = millis();
+        } else {
+            centi = (int) (((millis() - startMillis) / 10) % 100);
+        }
     }
 
     draw();

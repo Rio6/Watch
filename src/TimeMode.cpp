@@ -26,7 +26,8 @@ bool TimeMode::display() {
     }
 
     debounce(TSButtonLowerLeft) {
-        setMode(modes::SWMode);
+        //setMode(modes::SWMode);
+        setMode(modes::BrickMode);
         return true;
     }
 
