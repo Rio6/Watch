@@ -41,7 +41,7 @@ void ChTimeMode::printDate() {
     int offset = y - 1864; // 1864 是甲子年
     sprintf(yMsg, "%c%c]", tiangan[offset%10], dizhi[offset%12]); // %c%c年
 
-    if(m >= 10)
+    if(m > 10)
         sprintf(mMsg, "%c%cd", nStr2[m/10], nStr1[m%10]); // %c%c月
     else if(m == 10)
         sprintf(mMsg, "Rd"); // 十月
