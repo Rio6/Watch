@@ -63,6 +63,6 @@ void SWMode::draw() {
     screen.print(topMsg);
 
     screen.setFont(liberationSansNarrow_edited_16ptFontInfo);
-    screen.setCursor(screen.xMax * 2 / 3 + 3, screen.yMax / 2 - 3);
+    screen.setCursor(screen.xMax * 2 / 3 + 4, screen.yMax / 2 - 5);
     screen.print(botMsg);
 }

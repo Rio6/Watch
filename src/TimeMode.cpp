@@ -77,7 +77,7 @@ void TimeMode::printDate() {
     sprintf(msg, "%02d/%02d %s", month(), day(), dayShortStr(weekday()));
 
     screen.setFont(liberationSansNarrow_8ptFontInfo);
-    screen.setCursor((screen.xMax - screen.getPrintWidth(msg)) / 2, 2);
+    screen.setCursor((screen.xMax - screen.getPrintWidth(msg)) / 2, 4);
     screen.print(msg);
 }
 
@@ -93,7 +93,7 @@ void TimeMode::printTime() {
     screen.print(hmMsg);
 
     screen.setFont(liberationSansNarrow_edited_16ptFontInfo);
-    screen.setCursor(screen.xMax * 2 / 3 + 3, screen.yMax / 2 - 3);
+    screen.setCursor(screen.xMax * 2 / 3 + 4, screen.yMax / 2 - 5);
     screen.print(secMsg);
 }
 
@@ -136,7 +136,7 @@ void TimeMode::printClass() {
     if(!hasClass) sprintf(msg, "no class");
 
     screen.setFont(liberationSansNarrow_8ptFontInfo);
-    screen.setCursor((screen.xMax - screen.getPrintWidth(msg)) / 2, 2);
+    screen.setCursor((screen.xMax - screen.getPrintWidth(msg)) / 2, 4);
     screen.print(msg);
 }
 

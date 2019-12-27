@@ -77,6 +77,6 @@ void ChTimeMode::printTime() {
     sprintf(kMsg, "%cQ", nStr1[m/15+1]); // %c刻
 
     screen.setFont(song_8ptFontInfo);
-    screen.setCursor(screen.xMax * 2 / 3 + 3, screen.yMax / 2 + 2);
+    screen.setCursor(screen.xMax * 2 / 3 + 3, screen.yMax / 2);
     screen.print(kMsg);
 }

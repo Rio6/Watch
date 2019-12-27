@@ -9,7 +9,6 @@
 #include "SetTimeMode.hpp"
 #include "SWMode.hpp"
 #include "ChTimeMode.hpp"
-#include "Brick.hpp"
 #include "NoteMode.hpp"
 #include "battery.hpp"
 #include "main.hpp"
@@ -25,7 +24,6 @@ Mode *modes::TimeMode = new ::TimeMode();
 Mode *modes::SetTimeMode = new ::SetTimeMode();
 Mode *modes::SWMode = new ::SWMode();
 Mode *modes::ChTimeMode = new ::ChTimeMode();
-Mode *modes::BrickMode = new ::BrickMode();
 Mode *modes::NoteMode = new ::NoteMode();
 Mode *mode = modes::TimeMode;
 

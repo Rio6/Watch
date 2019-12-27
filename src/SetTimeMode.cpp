@@ -131,14 +131,14 @@ void SetTimeMode::printTime() {
     }
 
     screen.setFont(liberationSansNarrow_edited_22ptFontInfo);
-    screen.setCursor(screen.xMax * 2 / 3 - screen.getPrintWidth(hmMsg) - 3, screen.yMax / 2 - 9);
+    screen.setCursor(screen.xMax * 2 / 3 - screen.getPrintWidth(hmMsg) - 3, screen.yMax / 2 - 8);
     screen.print(hmMsg);
 
     screen.setFont(liberationSansNarrow_edited_16ptFontInfo);
-    screen.setCursor(screen.xMax * 2 / 3 + 3, screen.yMax / 2 - 3);
+    screen.setCursor(screen.xMax * 2 / 3 + 4, screen.yMax / 2 - 5);
     screen.print(secMsg);
 
     screen.setFont(liberationSansNarrow_edited_8ptFontInfo);
-    screen.setCursor((screen.xMax - screen.getPrintWidth(dateMsg)) / 2, 2);
+    screen.setCursor((screen.xMax - screen.getPrintWidth(dateMsg)) / 2, 4);
     screen.print(dateMsg);
 }
