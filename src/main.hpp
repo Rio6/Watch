@@ -22,6 +22,8 @@ extern byte debounce;
         debounce &= ~btn;\
     } else if(!(debounce & btn) && (debounce |= btn))
 
+extern int elapsedMillis;
+
 void nextMode();
 void setMode(Mode*);
 

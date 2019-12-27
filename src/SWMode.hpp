@@ -8,12 +8,9 @@ class SWMode : public Mode {
         bool display();
 
     private:
-        time_t startTime = 0;
-        long startMillis = 0;
+        // if not running then this is elapsed time, else it's start time
+        unsigned long time = 0;
         bool running = false;
-        bool zeroed = true;
-        time_t time = 0;
-        int centi = 0;
 
         void draw();
 };

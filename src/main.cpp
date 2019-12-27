@@ -20,6 +20,11 @@ RTCZero rtc;
 TinyScreen screen = TinyScreen(TinyScreenPlus); //Create the TinyScreen object
 byte debounce = 0;
 
+// Time keeping between each second
+time_t lastTime;
+static unsigned long lastMillis;
+int elapsedMillis = 0;
+
 Mode *modes::TimeMode = new ::TimeMode();
 Mode *modes::SetTimeMode = new ::SetTimeMode();
 Mode *modes::SWMode = new ::SWMode();
@@ -89,12 +94,24 @@ void loop() {
     screen.clearScreen();
     for(long start = millis(); millis() - start < DURATION;) {
 
+        // Time keeping between seconds
+        time_t time = now();
+        if(time != lastTime) {
+            lastTime = time;
+            lastMillis = millis();
+            elapsedMillis = 0;
+        } else {
+            elapsedMillis = millis() - lastMillis;
+        }
+
         bool active = mode->display();
         if(active) start = millis();
 
         float volt = getBattVoltage();
         if(volt < 3.5f)
             printBattery(volt);
+
+        delay(10);
     }
     standby();
 }
