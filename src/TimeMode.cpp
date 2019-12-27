@@ -26,8 +26,7 @@ bool TimeMode::display() {
     }
 
     debounce(TSButtonLowerLeft) {
-        //setMode(modes::SWMode);
-        setMode(modes::BrickMode);
+        setMode(modes::SWMode);
         return true;
     }
 
@@ -90,13 +89,11 @@ void TimeMode::printTime() {
     sprintf(secMsg, "%02d", second());
 
     screen.setFont(liberationSansNarrow_edited_22ptFontInfo);
-    uint8_t hmH = screen.getFontHeight();
-
-    screen.setCursor((screen.xMax - screen.getPrintWidth(hmMsg)) / 2, (screen.yMax - hmH) / 2);
+    screen.setCursor(screen.xMax * 2 / 3 - screen.getPrintWidth(hmMsg), screen.yMax / 2 - 8);
     screen.print(hmMsg);
 
     screen.setFont(liberationSansNarrow_edited_16ptFontInfo);
-    screen.setCursor((screen.xMax - screen.getPrintWidth(secMsg)) / 2, (screen.yMax + hmH) / 2 + 2);
+    screen.setCursor(screen.xMax * 2 / 3 + 3, screen.yMax / 2 - 3);
     screen.print(secMsg);
 }
 

@@ -131,13 +131,11 @@ void SetTimeMode::printTime() {
     }
 
     screen.setFont(liberationSansNarrow_edited_22ptFontInfo);
-    uint8_t hmH = screen.getFontHeight();
-
-    screen.setCursor((screen.xMax - screen.getPrintWidth(hmMsg)) / 2, (screen.yMax - hmH) / 2);
+    screen.setCursor(screen.xMax * 2 / 3 - screen.getPrintWidth(hmMsg) - 3, screen.yMax / 2 - 9);
     screen.print(hmMsg);
 
     screen.setFont(liberationSansNarrow_edited_16ptFontInfo);
-    screen.setCursor((screen.xMax - screen.getPrintWidth(secMsg)) / 2, (screen.yMax + hmH) / 2 + 2);
+    screen.setCursor(screen.xMax * 2 / 3 + 3, screen.yMax / 2 - 3);
     screen.print(secMsg);
 
     screen.setFont(liberationSansNarrow_edited_8ptFontInfo);

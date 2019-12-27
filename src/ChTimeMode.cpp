@@ -69,17 +69,14 @@ void ChTimeMode::printTime() {
     sprintf(hMsg, "%c%c", dizhi[((h+1) % 24) / 2], halfs[(h+1)%2]);
 
     screen.setFont(song_22ptFontInfo);
-    screen.setCursor((screen.xMax - screen.getPrintWidth(hMsg)) / 2, (screen.yMax - screen.getFontHeight()) / 2);
+    screen.setCursor(screen.xMax * 2 / 3 - screen.getPrintWidth(hMsg), screen.yMax / 2 - 10);
     screen.print(hMsg);
-
-    screen.setFont(song_8ptFontInfo);
-    uint8_t fh = screen.getFontHeight();
-    uint8_t fy = (screen.yMax + fh) / 2 + 10;
 
     int m = minute(t);
     char kMsg[3];
     sprintf(kMsg, "%cQ", nStr1[m/15+1]); // %c刻
 
-    screen.setCursor((screen.xMax - screen.getPrintWidth(kMsg)) / 2, fy);
+    screen.setFont(song_8ptFontInfo);
+    screen.setCursor(screen.xMax * 2 / 3 + 3, screen.yMax / 2 + 2);
     screen.print(kMsg);
 }

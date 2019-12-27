@@ -28,7 +28,7 @@ bool SWMode::display() {
     }
 
     debounce(TSButtonLowerLeft) {
-        setMode(modes::BrickMode);
+        setMode(modes::ChTimeMode);
         return true;
     }
 
@@ -59,12 +59,10 @@ void SWMode::draw() {
     }
 
     screen.setFont(liberationSansNarrow_edited_22ptFontInfo);
-    uint8_t hmH = screen.getFontHeight();
-
-    screen.setCursor((screen.xMax - screen.getPrintWidth(topMsg)) / 2, (screen.yMax - hmH) / 2);
+    screen.setCursor(screen.xMax * 2 / 3 - screen.getPrintWidth(topMsg), screen.yMax / 2 - 8);
     screen.print(topMsg);
 
     screen.setFont(liberationSansNarrow_edited_16ptFontInfo);
-    screen.setCursor((screen.xMax - screen.getPrintWidth(botMsg)) / 2, (screen.yMax + hmH) / 2 + 2);
+    screen.setCursor(screen.xMax * 2 / 3 + 3, screen.yMax / 2 - 3);
     screen.print(botMsg);
 }
