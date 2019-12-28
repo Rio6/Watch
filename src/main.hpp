@@ -22,11 +22,10 @@ extern byte debounce;
         debounce &= ~btn;\
     } else if(!(debounce & btn) && (debounce |= btn))
 
-extern int elapsedMillis;
-
 void nextMode();
 void setMode(Mode*);
 
 void playSound(int freq = 2637, int duration = 50);
+unsigned long centis(); // Centiseconds since epoch, synced with rtc
 
 #endif

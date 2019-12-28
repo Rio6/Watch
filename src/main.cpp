@@ -21,9 +21,9 @@ TinyScreen screen = TinyScreen(TinyScreenPlus); //Create the TinyScreen object
 byte debounce = 0;
 
 // Time keeping between each second
-time_t lastTime;
+static time_t lastTime;
 static unsigned long lastMillis;
-int elapsedMillis = 0;
+static int elapsedMillis = 0;
 
 Mode *modes::TimeMode = new ::TimeMode();
 Mode *modes::SetTimeMode = new ::SetTimeMode();
@@ -114,4 +114,8 @@ void loop() {
         delay(10);
     }
     standby();
+}
+
+unsigned long centis() {
+    return now() * 100 + elapsedMillis / 10;
 }
