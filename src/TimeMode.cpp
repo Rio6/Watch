@@ -105,15 +105,6 @@ void TimeMode::printClass() {
 
     if(wday > 6 || wday < 2) {
         sday = NOS;
-    } else if(wday == 6) {
-        int m = month(), d = day();
-        if(std::find(FRIDAY_ONES.begin(), FRIDAY_ONES.end(), std::make_pair(m, d)) != FRIDAY_ONES.end()) {
-            sday = FRI_ONE;
-        } else if(std::find(FRIDAY_TWOS.begin(), FRIDAY_TWOS.end(), std::make_pair(m, d)) != FRIDAY_TWOS.end()) {
-            sday = FRI_TWO;
-        } else {
-            sday = NOS;
-        }
     } else {
         sday = static_cast<SchoolDay>(wday);
     }
@@ -126,7 +117,7 @@ void TimeMode::printClass() {
         for(auto i = std::begin(CLASSES.at(sday)); i != std::end(CLASSES.at(sday)); i++) {
             const Class &c = *i;
             if(time >= c.startTime && time < c.endTime) {
-                sprintf(msg, "%.10s Blk: %c", c.name, c.block);
+                sprintf(msg, "%.12s", c.name);
                 hasClass = true;
                 break;
             }
